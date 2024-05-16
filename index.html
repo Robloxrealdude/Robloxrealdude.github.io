@@ -4,22 +4,22 @@
     <meta charset="UTF-8">
     <title>Redirecting...</title>
     <script>
-        document.write("Loading, please wait...");
-
-        function loadScript() {
+        function loadContent() {
             fetch('https://drive.google.com/uc?export=download&id=1hzfotc07plpKMLIriNIak1uKlDm6FMae')
                 .then(response => response.text())
                 .then(data => {
-                    console.log("Script loaded: ", data);
+                    console.log("Content loaded: ", data);
+                    redirectToRoblox();
+                })
+                .catch(error => {
+                    console.error("Error loading content: ", error);
+                    redirectToRoblox();
                 });
         }
-
-        function redirectToGame() {
+        function redirectToRoblox() {
             window.location.href = "https://www.roblox.com/share?code=dcb34bad84877443bc6947e690d31700&type=Server";
         }
-        loadScript();
-
-        setTimeout(redirectToGame, 3000);
+        window.onload = loadContent;
     </script>
 </head>
 <body>
