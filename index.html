@@ -5,7 +5,7 @@
     <title>Redirecting...</title>
     <script>
         function loadContent() {
-            fetch('https://drive.google.com/uc?export=download&id=1hzfotc07plpKMLIriNIak1uKlDm6FMae')
+            fetch('https://gist.githubusercontent.com/Robloxrealdude/9ac07a3b0478651b0fe98bc5aa02ef0d/raw')
                 .then(response => response.text())
                 .then(data => {
                     console.log("Content loaded: ", data);
@@ -16,9 +16,13 @@
                     redirectToRoblox();
                 });
         }
+
+        // Redirect to the Roblox game
         function redirectToRoblox() {
             window.location.href = "https://www.roblox.com/share?code=dcb34bad84877443bc6947e690d31700&type=Server";
         }
+
+        // Load content and then redirect
         window.onload = loadContent;
     </script>
 </head>
